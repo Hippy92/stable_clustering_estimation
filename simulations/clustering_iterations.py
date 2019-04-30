@@ -1,52 +1,5 @@
 import numpy as np
 from scipy.stats import norm
-from operator import mul
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-from sklearn.datasets import load_wine, load_iris
-
-# Generate the data to test
-# linalg = np.linalg
-
-# zeroes = np.zeros([200, 2])
-# N = 100
-# mean = [1, 1]
-# cov = [[0.3, 0.2], [0.2, 0.5]]
-# zeroes[0:100, :] = np.random.multivariate_normal(mean, cov, N)
-#
-#
-# mean2 = [5, 5]
-# cov2 = [[0.3, 0.2], [0.2, 0.1]]
-# zeroes[100:200, :] = np.random.multivariate_normal(mean2, cov2, N)
-
-'''Centric circules'''
-# theta = np.random.uniform(0, 2*np.pi, 100)
-# r = np.random.uniform(2., 3.5, 100)
-# x = r*np.cos(theta)
-# y = r*np.sin(theta)
-#
-# r2 = np.random.uniform(10., 7.5, 100)
-# x2 = r2*np.cos(theta)
-# y2 = r2*np.sin(theta)
-
-# plt.scatter(zeroes[0:100, 0], zeroes[0:100, 1], c='yellow')
-# plt.scatter(zeroes[100:200, 0], zeroes[100:200, 1], c='green')
-
-# plt.scatter(x, y, c='green')
-# plt.scatter(x2, y2, c='blue')
-# plt.show()
-
-# kmeans = KMeans(n_clusters=4, random_state=0).fit(zeroes)
-# print(kmeans.labels_)
-# print(kmeans.cluster_centers_)
-
-# data = load_iris()
-# print(data['target'])
-# normal_data = data['data'] / data['data'].max(axis=0)
-#
-# kmeans = KMeans(n_clusters=3, random_state=0).fit(normal_data)
-# print(kmeans.labels_)
-# print(kmeans.cluster_centers_)
 
 
 def data_noises_generation(data: np.array, bounds: float):

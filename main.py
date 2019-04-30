@@ -1,10 +1,8 @@
 from simulations.clustering_iterations import *
-from sklearn.cluster import KMeans, AgglomerativeClustering, SpectralClustering
-from sklearn.datasets import load_breast_cancer, make_circles, make_moons, make_blobs
-from collections import defaultdict
+from sklearn.cluster import KMeans, AgglomerativeClustering
+from sklearn.datasets import load_breast_cancer, make_circles, make_moons, make_blobs, load_iris, load_wine
 from sklearn import mixture
 from sklearn.metrics import calinski_harabaz_score, silhouette_score
-import json
 
 
 def clust_alg(k):
@@ -27,12 +25,15 @@ def clust_alg(k):
 def gaussian_samples(means, size_per_sample):
     center_number = len(means)
     zeroes = np.zeros([center_number * size_per_sample, 2])
-    cov = [[0.00, 0.00], [0.1, 0.1]]
+    cov = [[0.00, 0.07], [0.1, 0.17]]
+    labels_ = np.zeros([center_number * size_per_sample,])
+
     for idx, mean in enumerate(means):
         zeroes[idx*size_per_sample:(idx + 1)*size_per_sample, :] = \
             np.random.multivariate_normal(mean, cov, size_per_sample)
+        labels_[idx*size_per_sample:(idx+1)*size_per_sample] = np.ones([size_per_sample,]) * idx
 
-    return zeroes
+    return zeroes, labels_
 
 
 def data_sets():
@@ -44,10 +45,11 @@ def data_sets():
     databases['Iris'] = load_iris()['data']
     databases['Wine'] = load_wine()['data']
     databases['Cancer'] = load_breast_cancer()['data']
-    databases['Moons'], _ = make_moons(500, noise=0.06)
-    databases['Circles'], _ = make_circles(500, noise=0.06, factor=.5)
-    databases['4 Gauss'], _ = make_blobs(n_samples=500, centers=4, n_features=2, random_state=0)
-    databases['6 Gauss'], _ = make_blobs(n_samples=500, centers=6, n_features=2, random_state=0)
+    databases['Moons'], _ = make_moons(700, noise=0.07)
+    databases['Circles'], _ = make_circles(700, noise=0.06, factor=.5)
+    databases['4 Gauss'], _ = make_blobs(n_samples=1000, centers=4, n_features=2, random_state=3)
+    databases['6 Gauss'], _ = make_blobs(n_samples=1000, centers=6, n_features=2, random_state=3)
+    databases['5 Gauss'], _ = gaussian_samples([(1, 1), (1, 4), (4, 4), (4, 1), (2.5, 2.5)], 200)
 
     return databases
 
@@ -73,7 +75,7 @@ if __name__ == '__main__':
     clusters_n = [k for k in range(2, 11)]  # Number of clusters from 2 to 10
     perturbations_n = 100  # Perturbations times
     boot_n = 1000  # Bootstrap iterations
-    results = defaultdict(defaultdict)  # Collect results
+    results = dict()  # Collect results
     indices = dict()  # Collect results
     for data_key, data in data_sets().items():
         for clust_n in clusters_n:
