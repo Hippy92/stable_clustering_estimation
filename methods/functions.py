@@ -4,8 +4,8 @@ from scipy.stats import norm
 
 def data_noises_generation(data: np.array, bounds: float):
     """
-    Noises are generated from uniform distribution
-    Symetric parts of avg_vals by column
+        Noises are generated from uniform distribution
+        Symmetric parts of avg_vals by column
     """
     avg = data.mean(axis=0)
     zeros = np.zeros(data.shape)
@@ -16,14 +16,14 @@ def data_noises_generation(data: np.array, bounds: float):
 
 def generate_noised_sample(data: np.array, bounds: float):
     """
-    Noised data generation
+        Noised data generation
     """
     return data + data_noises_generation(data, bounds)
 
 
 def convert_clusters_to_matrix(clusters_list: list):
     """
-    Calculate the cluster similarity matrix
+        Calculate the cluster similarity matrix
     """
     shape = (len(clusters_list), len(clusters_list))
     matrix_c = np.zeros(shape)
@@ -37,7 +37,7 @@ def convert_clusters_to_matrix(clusters_list: list):
 
 def clustering_simulation(data: np.array, clustering_algorithm):
     """
-    Calculate clusters, return cluster similarity matrix C
+        Calculate clusters, return cluster similarity matrix C
     """
 
     clustering_algorithm.fit(data)
@@ -48,6 +48,9 @@ def clustering_simulation(data: np.array, clustering_algorithm):
 
 
 def scalar_mult(a, b):
+    """
+        Clustering matrix multiplication
+    """
     return np.multiply(a, b).sum()
 
 
@@ -70,7 +73,7 @@ def lb_distance(a, b):
 
 def similarities_calc(noised_matrices_c, original_c, distance):
     """
-    Similarity vector
+        Similarities vector calculation
     """
 
     return [distance(original_c, c) for c in noised_matrices_c]
@@ -78,7 +81,7 @@ def similarities_calc(noised_matrices_c, original_c, distance):
 
 def bootstrap(n_simulations, t_vect):
     """
-    Generate the sample of cluster avg similarities
+        Generate the sample of cluster avg similarities
     """
 
     y_size = t_vect.shape[0]
@@ -92,9 +95,10 @@ def bootstrap(n_simulations, t_vect):
     return zeros.mean(axis=1)
 
 
+# ====================== Criteria =======================
 def var_criterion(frequencies):
     """
-    Value at Risk criterion
+        Value at Risk criterion
     """
 
     mu = np.mean(frequencies)

@@ -1,4 +1,4 @@
-from simulations.clustering_iterations import *
+from methods.functions import *
 from sklearn.cluster import KMeans, AgglomerativeClustering
 from sklearn.datasets import load_breast_cancer, make_circles, make_moons, make_blobs, load_iris, load_wine
 from sklearn import mixture
@@ -47,7 +47,7 @@ def data_sets():
     databases['Cancer'] = load_breast_cancer()['data']
     databases['Moons'], _ = make_moons(700, noise=0.07)
     databases['Circles'], _ = make_circles(700, noise=0.06, factor=.5)
-    databases['4 Gauss'], _ = make_blobs(n_samples=1000, centers=4, n_features=2, random_state=3)
+    databases['4 Gauss'], _ = make_blobs(n_samples=1000, centers=4, n_features=2, random_state=2)
     databases['6 Gauss'], _ = make_blobs(n_samples=1000, centers=6, n_features=2, random_state=3)
     databases['5 Gauss'], _ = gaussian_samples([(1, 1), (1, 4), (4, 4), (4, 1), (2.5, 2.5)], 200)
 
